@@ -1,0 +1,108 @@
+import React, {Dispatch, SetStateAction, useState} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+  LoginManager,
+} from 'react-native-fbsdk';
+import {FbUserInfo} from '../interfaces/interfaces';
+
+interface Props {
+  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
+}
+
+const FbButton = (props: Props) => {
+  const [userInfo, setUserInfo] = useState<FbUserInfo>({});
+  const [fbAuthToken, setFbAuthToken] = useState<string>('');
+
+  function logoutWithFacebook() {
+    LoginManager.logOut();
+    setUserInfo({});
+  }
+
+  function getInfoFromToken(accessToken: string) {
+    const PROFILE_REQUEST_PARAMS = {
+      fields: {
+        string: 'id, name,  first_name, last_name',
+      },
+    };
+    const profileRequest = new GraphRequest(
+      '/me',
+      {accessToken, parameters: PROFILE_REQUEST_PARAMS},
+      (error, result) => {
+        if (error) {
+          console.log('login info has error: ' + error);
+        } else {
+          if (result) {
+            setUserInfo(result);
+            props.setIsLoggedIn(true);
+          }
+        }
+      },
+    );
+    new GraphRequestManager().addRequest(profileRequest).start();
+  }
+
+  function loginWithFacebook() {
+    LoginManager.logInWithPermissions(['public_profile']).then(
+      login => {
+        if (login.isCancelled) {
+          console.log('Login cancelled');
+        } else {
+          AccessToken.getCurrentAccessToken().then(data => {
+            let accessToken = '';
+            if (data) {
+              accessToken = data.accessToken.toString();
+            }
+            setFbAuthToken(accessToken);
+            getInfoFromToken(accessToken);
+          });
+        }
+      },
+      (error: Error) => {
+        console.log('Login fail with error: ' + error);
+      },
+    );
+  }
+
+  const isLogin = userInfo.name;
+  const buttonText = isLogin ? 'Log out with Facebook' : 'Log in with Facebook';
+  const onPressButton = isLogin ? logoutWithFacebook : loginWithFacebook;
+
+  return (
+    <View style={styles.view}>
+      <TouchableOpacity onPress={onPressButton} style={styles.button}>
+        <Text style={styles.buttonText}>{buttonText}</Text>
+      </TouchableOpacity>
+      {userInfo.name && (
+        <Text style={styles.loginText}>Logged in As {userInfo.name}</Text>
+      )}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#4267B2',
+    paddingHorizontal: 50,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  buttonText: {
+    fontSize: 20,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  loginText: {
+    fontSize: 20,
+    marginVertical: 16,
+  },
+  view: {
+    margin: 20,
+  },
+});
+
+export default FbButton;

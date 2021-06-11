@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">matchmaker</string>
+    <string name="facebook_app_id">184197200175505</string>
+    <string name="fb_login_protocol_scheme">fb184197200175505</string>
+</resources>
+
+<!--Facebook strings added per Facebook SDK to allow for Facebook login-->
