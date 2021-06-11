@@ -1,11 +1,24 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import FriendsHome from './FriendsHome';
+import FriendsAdd from './FriendsAdd';
+
+const Stack = createStackNavigator();
 
 const Friends = () => {
   return (
-    <View>
-      <Text>Friends</Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="FriendsHome"
+        component={FriendsHome}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="FriendsAdd"
+        component={FriendsAdd}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 };
 

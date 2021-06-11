@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LogIn from './screens/LogIn';
-import Profile from './screens/Profile';
+import ProfileHome from './screens/ProfileHome';
 import Friends from './screens/Friends';
 import Matches from './screens/Matches';
 
@@ -24,13 +24,20 @@ const App = () => {
             tabStyle: styles.tab,
             labelStyle: styles.tabText,
             showLabel: false,
-          }}>
+          }}
+        >
           <Tab.Screen
             name="Matches"
             component={Matches}
             options={{
               tabBarLabel: 'Matches',
-              tabBarIcon: ({color, size}: {color: string; size: number}) => (
+              tabBarIcon: ({
+                color,
+                size,
+              }: {
+                color: string;
+                size: number;
+              }) => (
                 <MaterialCommunityIcons
                   name="account-supervisor"
                   color={color}
@@ -44,7 +51,13 @@ const App = () => {
             component={Friends}
             options={{
               tabBarLabel: 'Friends',
-              tabBarIcon: ({color, size}: {color: string; size: number}) => (
+              tabBarIcon: ({
+                color,
+                size,
+              }: {
+                color: string;
+                size: number;
+              }) => (
                 <MaterialCommunityIcons
                   name="playlist-plus"
                   color={color}
@@ -54,11 +67,17 @@ const App = () => {
             }}
           />
           <Tab.Screen
-            name="Profile"
-            component={Profile}
+            name="ProfileHome"
+            component={ProfileHome}
             options={{
               tabBarLabel: 'Profile',
-              tabBarIcon: ({color, size}: {color: string; size: number}) => (
+              tabBarIcon: ({
+                color,
+                size,
+              }: {
+                color: string;
+                size: number;
+              }) => (
                 <MaterialCommunityIcons
                   name="account"
                   color={color}
