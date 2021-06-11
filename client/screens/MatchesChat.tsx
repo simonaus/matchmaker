@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList,
   Image,
+  TouchableOpacity,
   TextInput,
 } from 'react-native';
 import { messagesArrayMock } from '../services/mock';
@@ -18,13 +19,20 @@ interface Props {
 const MatchesChat = (props: Props) => {
   const [messageContent, setMessageContent] = useState<string>('');
 
+  const onSubmitInput = () => {
+    setMessageContent('');
+    return;
+  };
+
   return (
     <View style={styles.view}>
-      <Text style={styles.mainHeader}>{props.route.params.firstName}</Text>
-      <Image
-        style={styles.image}
-        source={require('../assets/images/User2.jpg')}
-      />
+      <View style={styles.headerContainer}>
+        <Text style={styles.mainHeader}>{props.route.params.firstName}</Text>
+        <Image
+          style={styles.image}
+          source={require('../assets/images/User2.jpg')}
+        />
+      </View>
       <FlatList
         data={messagesArrayMock}
         keyExtractor={match => match.id + ''}
@@ -39,14 +47,24 @@ const MatchesChat = (props: Props) => {
           );
         }}
       />
-      <TextInput
-        style={styles.input}
-        value={messageContent}
-        onChangeText={setMessageContent}
-        multiline={true}
-        numberOfLines={4}
-        placeholder="Type message"
-      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          value={messageContent}
+          onChangeText={setMessageContent}
+          multiline={true}
+          numberOfLines={2}
+          placeholder="Type message"
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            onSubmitInput();
+          }}
+        >
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -57,26 +75,56 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   mainHeader: {
-    paddingTop: 30,
     fontSize: 60,
     fontFamily: 'MomcakeThin-9Y6aZ',
     alignSelf: 'center',
+    marginTop: '10%',
+    marginLeft: '5%',
+  },
+  headerContainer: {
+    flexDirection: 'row-reverse',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
+    paddingBottom: '8%',
   },
   image: {
-    height: '20%',
+    height: '90%',
     width: '20%',
     resizeMode: 'contain',
     borderRadius: 150,
     alignSelf: 'center',
+    marginLeft: '5%',
+    marginTop: '10%',
   },
   input: {
     borderWidth: 1,
     borderColor: 'grey',
-    padding: 5,
-    backgroundColor: '#eeeeee',
-    width: '90%',
-    marginTop: 20,
+    backgroundColor: 'white',
+    width: '80%',
     alignSelf: 'center',
+    textAlignVertical: 'top',
+    fontSize: 25,
+    marginLeft: '2%',
+    marginRight: '3%',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 10,
+  },
+  button: {
+    width: 50,
+    height: 70,
+    alignSelf: 'center',
+    textAlignVertical: 'top',
+    fontSize: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontSize: 40,
   },
 });
 

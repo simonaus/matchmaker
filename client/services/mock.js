@@ -108,8 +108,15 @@ export const messageMock4 = {
 export const messageMock5 = {
   id: 6666,
   user: true,
-  createdOn: 'May 8th 2020',
+  createdOn: 'May 9th 2020',
   content: 'Helloooooooo? Why are you not responding??',
+};
+
+export const messageMock6 = {
+  id: 7777,
+  user: false,
+  createdOn: 'May 9th 2020',
+  content: 'Please leave me alone or I will contact the police',
 };
 
 export const friendsArrayMock1 = [
@@ -149,4 +156,4 @@ export const matchesArrayMock1 = [
   },
 ];
 
-export const messagesArrayMock = [messageMock1, messageMock2, messageMock3, messageMock4, messageMock5];
+export const messagesArrayMock = [messageMock1, messageMock2, messageMock3, messageMock4, messageMock5, messageMock6];
