@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
   Animated,
   PanResponderInstance,
 } from 'react-native';
-import {friendsArrayMock1} from '../services/mock';
+import { friendsArrayMock1 } from '../services/mock';
 import Friend from '../components/Friend';
 
 interface Props {
@@ -40,15 +40,16 @@ const MatchesPair = (props: Props) => {
     onMoveShouldSetPanResponderCapture: () => true,
 
     onPanResponderGrant: (_, gestureState) => {
-      Animated.event([{y: point.y}], {useNativeDriver: false})({
-        y: gestureState.moveY,
+      Animated.event([{ y: point.y }], { useNativeDriver: false })({
+        y: gestureState.y0,
       });
+      console.log('gesturestate0', gestureState.y0);
       currentIndex = yToIndex(gestureState.y0);
       currentY = gestureState.y0;
       setDraggingIndex(currentIndex);
     },
     onPanResponderMove: (_, gestureState) => {
-      Animated.event([{y: point.y}], {useNativeDriver: false})({
+      Animated.event([{ y: point.y }], { useNativeDriver: false })({
         y: gestureState.moveY,
       });
       currentY = gestureState.moveY;
@@ -57,8 +58,6 @@ const MatchesPair = (props: Props) => {
     onPanResponderTerminationRequest: () => false,
     onPanResponderRelease: () => {
       if (currentY < 210) {
-        console.log(draggingIndex);
-        console.log(matchFriends[draggingIndex].firstName);
         props.navigation.navigate('MatchesConfirm', {
           id1: props.route.params.id,
           firstName1: props.route.params.firstName,
@@ -78,7 +77,7 @@ const MatchesPair = (props: Props) => {
     },
   });
 
-  const renderItem2 = ({item}: any) => {
+  const renderItem2 = ({ item }: any) => {
     return (
       <View>
         <Friend
@@ -91,9 +90,9 @@ const MatchesPair = (props: Props) => {
     );
   };
 
-  const renderItem = ({item, index}: any, noPanResponder = false) => {
+  const renderItem = ({ item, index }: any, noPanResponder = false) => {
     return (
-      <View style={{opacity: draggingIndex === index ? 0 : 1}}>
+      <View style={{ opacity: draggingIndex === index ? 0 : 1 }}>
         <View {...(noPanResponder ? {} : panResponder.panHandlers)}>
           <Friend
             id={item.id}
@@ -133,7 +132,7 @@ const MatchesPair = (props: Props) => {
             zIndex: 2,
             top: point.getLayout().top,
           }}>
-          {renderItem2({item: draggingIndex, index: -1})}
+          {renderItem2({ item: draggingIndex, index: -1 })}
         </Animated.View>
       )}
       <Text style={styles.mainHeader}>Find a match for</Text>

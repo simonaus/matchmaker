@@ -1,13 +1,13 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
-import FbButton from '../components/FbButton';
+import { userMock2 } from '../services/mock';
 
 interface Props {
   user: boolean;
@@ -15,78 +15,42 @@ interface Props {
 }
 
 const Profile = (props: Props) => {
-  const [loginUsername, setLoginUsername] = useState<string>('');
-  const [loginPassword, setLoginPassword] = useState<string>('');
-  const [registerEmail, setRegisterEmail] = useState<string>('');
-  const [registerFirstname, setRegisterFirstname] = useState<string>('');
-  const [registerPassword, setRegisterPassword] = useState<string>('');
-  const [registerRetypePassword, setRegisterRetypePassword] =
-    useState<string>('');
+  let editButton;
+  if (props.user) {
+    editButton = (
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            return;
+          }}
+        >
+          <Text style={styles.button}>Edit Profile</Text>
+        </TouchableOpacity>
+        <Text style={styles.subHeader}>UserID: {userMock2.id}</Text>
+      </View>
+    );
+  }
+
+  let isMatch: string = 'Here to make matches';
+  if (userMock2.isMatch === 'true') {
+    isMatch = 'Here to be matched';
+  }
 
   return (
     <View style={styles.view}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <Text style={styles.mainHeader}>Matchmaker</Text>
-        <Text style={styles.subHeader}>Log-in</Text>
+        <Text style={styles.mainHeader}>{userMock2.firstName}</Text>
+        <Image
+          style={styles.image}
+          source={require('../assets/images/User2.jpg')}
+        />
+        {editButton}
         <View style={styles.container}>
-          <FbButton setIsLoggedIn={props.setIsLoggedIn} />
-          <Text style={styles.text}>or log in with Matchmaker</Text>
-          <TextInput
-            style={styles.input}
-            value={loginUsername}
-            onChangeText={setLoginUsername}
-            placeholder="Username"
-          />
-          <TextInput
-            style={styles.input}
-            value={loginPassword}
-            onChangeText={setLoginPassword}
-            secureTextEntry={true}
-            placeholder="Password"
-          />
-          <TouchableOpacity
-            onPress={() => {
-              props.setIsLoggedIn(true);
-            }}
-          >
-            <Text style={styles.button}>Log in</Text>
-          </TouchableOpacity>
+          <Text style={styles.subHeader}>{isMatch}</Text>
         </View>
-        <Text style={styles.subHeader}>Sign up</Text>
+        <Text style={styles.subHeader}>About me</Text>
         <View style={styles.container}>
-          <TextInput
-            style={styles.input}
-            value={registerEmail}
-            onChangeText={setRegisterEmail}
-            placeholder="E-mail"
-          />
-          <TextInput
-            style={styles.input}
-            value={registerFirstname}
-            onChangeText={setRegisterFirstname}
-            placeholder="First name"
-          />
-          <TextInput
-            style={styles.input}
-            value={registerPassword}
-            onChangeText={setRegisterPassword}
-            secureTextEntry={true}
-            placeholder="Password"
-          />
-          <TextInput
-            style={styles.input}
-            value={registerRetypePassword}
-            onChangeText={setRegisterRetypePassword}
-            secureTextEntry={true}
-            placeholder="Retype password"
-          />
-          <TouchableOpacity
-            onPress={() => {
-              props.setIsLoggedIn(true);
-            }}
-          >
-            <Text style={styles.button}>Sign up</Text>
-          </TouchableOpacity>
+          <Text style={styles.description}>{userMock2.description}</Text>
         </View>
       </ScrollView>
     </View>
@@ -100,6 +64,7 @@ const styles = StyleSheet.create({
   },
   scroll: {
     width: '100%',
+    height: 1000,
     alignItems: 'center',
   },
   mainHeader: {
@@ -111,6 +76,8 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     fontSize: 30,
+    alignSelf: 'center',
+    marginTop: 20,
   },
   container: {
     marginVertical: 20,
@@ -120,23 +87,27 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
   },
-  text: {
-    fontSize: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'grey',
-    padding: 5,
-    backgroundColor: '#eeeeee',
-    width: 300,
-    marginTop: 20,
-  },
   button: {
     marginTop: 30,
     backgroundColor: '#222222',
     paddingHorizontal: 30,
     paddingVertical: 10,
     color: 'white',
+    width: '100%',
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
+  image: {
+    height: '30%',
+    width: '80%',
+    resizeMode: 'contain',
+    borderRadius: 150,
+  },
+  description: {
+    fontSize: 25,
+    alignSelf: 'flex-start',
+    marginTop: 20,
+    marginLeft: '5%',
   },
 });
 

@@ -7,7 +7,7 @@ import {
   FlatList,
 } from 'react-native';
 import { friendsArrayMock1 } from '../services/mock';
-import Friend from '../components/Match';
+import Friend from '../components/Friend';
 
 interface Props {
   navigation: any;
@@ -33,18 +33,14 @@ const FriendsHome = (props: Props) => {
               onPress={() => {
                 props.navigation.navigate('FriendsProfile', {
                   id: item.id,
-                  firstName: item.user2Name,
-                  profilePicture: item.user2ProfilePicture,
                 });
               }}
             >
               <Friend
                 id={item.id}
-                user1Name={item.user1Name}
-                user2Name={item.user2Name}
-                user2ProfilePicture={item.user2ProfilePicture}
-                matchedByName={item.matchedByName}
-                createdOn={item.createdOn}
+                firstName={item.firstName}
+                profilePicture={item.profilePicture}
+                isDragging={false}
               />
             </TouchableOpacity>
           );

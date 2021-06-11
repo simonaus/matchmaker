@@ -26,13 +26,20 @@ const MatchesChat = (props: Props) => {
 
   return (
     <View style={styles.view}>
-      <View style={styles.headerContainer}>
+      <TouchableOpacity
+        style={styles.headerContainer}
+        onPress={() => {
+          props.navigation.navigate('MatchesProfile', {
+            id: props.route.params.id,
+          });
+        }}
+      >
         <Text style={styles.mainHeader}>{props.route.params.firstName}</Text>
         <Image
           style={styles.image}
           source={require('../assets/images/User2.jpg')}
         />
-      </View>
+      </TouchableOpacity>
       <FlatList
         data={messagesArrayMock}
         keyExtractor={match => match.id + ''}
