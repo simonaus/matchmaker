@@ -1,6 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
-import {matchesArrayMock1} from '../services/mock';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
+import { matchesArrayMock1 } from '../services/mock';
 import Match from '../components/Match';
 
 interface Props {
@@ -14,22 +20,33 @@ const MatchesHome = (props: Props) => {
       <TouchableOpacity
         onPress={() => {
           props.navigation.navigate('MatchesAdd');
-        }}>
+        }}
+      >
         <Text style={styles.button}>Make a new match</Text>
       </TouchableOpacity>
       <FlatList
         data={matchesArrayMock1}
         keyExtractor={match => match.id + ''}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return (
-            <Match
-              id={item.id}
-              user1Name={item.user1Name}
-              user2Name={item.user2Name}
-              user2ProfilePicture={item.user2ProfilePicture}
-              matchedByName={item.matchedByName}
-              createdOn={item.createdOn}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                props.navigation.navigate('MatchesChat', {
+                  id: item.id,
+                  firstName: item.user2Name,
+                  profilePicture: item.user2ProfilePicture,
+                });
+              }}
+            >
+              <Match
+                id={item.id}
+                user1Name={item.user1Name}
+                user2Name={item.user2Name}
+                user2ProfilePicture={item.user2ProfilePicture}
+                matchedByName={item.matchedByName}
+                createdOn={item.createdOn}
+              />
+            </TouchableOpacity>
           );
         }}
       />

@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useState} from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import {
   View,
   Text,
@@ -46,7 +46,8 @@ const LogIn = (props: Props) => {
           <TouchableOpacity
             onPress={() => {
               props.setIsLoggedIn(true);
-            }}>
+            }}
+          >
             <Text style={styles.button}>Log in</Text>
           </TouchableOpacity>
         </View>
@@ -81,7 +82,8 @@ const LogIn = (props: Props) => {
           <TouchableOpacity
             onPress={() => {
               props.setIsLoggedIn(true);
-            }}>
+            }}
+          >
             <Text style={styles.button}>Sign up</Text>
           </TouchableOpacity>
         </View>

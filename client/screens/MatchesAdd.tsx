@@ -1,6 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
-import {friendsArrayMock1} from '../services/mock';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
+import { friendsArrayMock1 } from '../services/mock';
 import Friend from '../components/Friend';
 
 interface Props {
@@ -17,7 +23,7 @@ const MatchesAdd = (props: Props) => {
       <FlatList
         data={matchFriends}
         keyExtractor={match => match.id + ''}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return (
             <TouchableOpacity
               onPress={() => {
@@ -26,7 +32,8 @@ const MatchesAdd = (props: Props) => {
                   firstName: item.firstName,
                   profilePicture: item.profilePicture,
                 });
-              }}>
+              }}
+            >
               <Friend
                 id={item.id}
                 firstName={item.firstName}

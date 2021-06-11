@@ -79,33 +79,52 @@ export const matchesMock1 = {
 
 export const messageMock1 = {
   id: 2222,
-  matchId: 1111,
-  createdBy: 1234,
+  user: false,
   createdOn: 'May 8th 2020',
-  content: 'This is first message',
+  content: 'Hello nice to meet you',
 };
 
 export const messageMock2 = {
   id: 3333,
-  matchId: 1111,
-  createdBy: 9999,
+  user: true,
   createdOn: 'May 8th 2020',
-  content: 'This is second message',
+  content: 'Likewise',
+};
+
+export const messageMock3 = {
+  id: 4444,
+  user: false,
+  createdOn: 'May 8th 2020',
+  content: 'What do you think we should do when we meet?',
+};
+
+export const messageMock4 = {
+  id: 5555,
+  user: true,
+  createdOn: 'May 8th 2020',
+  content: 'Do you want to get married??',
+};
+
+export const messageMock5 = {
+  id: 6666,
+  user: true,
+  createdOn: 'May 8th 2020',
+  content: 'Helloooooooo? Why are you not responding??',
 };
 
 export const friendsArrayMock1 = [
-  {id: 5678, firstName: 'Harry', profilePicture: 'img', isMatch: false},
-  {id: 2021, firstName: 'Geoff', profilePicture: 'img', isMatch: true},
-  {id: 2022, firstName: 'Lucy', profilePicture: 'img', isMatch: true},
-  {id: 2023, firstName: 'Eloise', profilePicture: 'img', isMatch: true},
-  {id: 2024, firstName: 'Paul', profilePicture: 'img', isMatch: true},
-  {id: 2025, firstName: 'Mary', profilePicture: 'img', isMatch: true},
-  {id: 2026, firstName: 'Isabella', profilePicture: 'img', isMatch: true},
-  {id: 2027, firstName: 'Alice', profilePicture: 'img', isMatch: true},
-  {id: 2028, firstName: 'Zara', profilePicture: 'img', isMatch: true},
-  {id: 2029, firstName: 'Rachael', profilePicture: 'img', isMatch: true},
-  {id: 2030, firstName: 'Greg', profilePicture: 'img', isMatch: true},
-  {id: 2031, firstName: 'Victor', profilePicture: 'img', isMatch: true},
+  { id: 5678, firstName: 'Harry', profilePicture: 'img', isMatch: false },
+  { id: 2021, firstName: 'Geoff', profilePicture: 'img', isMatch: true },
+  { id: 2022, firstName: 'Lucy', profilePicture: 'img', isMatch: true },
+  { id: 2023, firstName: 'Eloise', profilePicture: 'img', isMatch: true },
+  { id: 2024, firstName: 'Paul', profilePicture: 'img', isMatch: true },
+  { id: 2025, firstName: 'Mary', profilePicture: 'img', isMatch: true },
+  { id: 2026, firstName: 'Isabella', profilePicture: 'img', isMatch: true },
+  { id: 2027, firstName: 'Alice', profilePicture: 'img', isMatch: true },
+  { id: 2028, firstName: 'Zara', profilePicture: 'img', isMatch: true },
+  { id: 2029, firstName: 'Rachael', profilePicture: 'img', isMatch: true },
+  { id: 2030, firstName: 'Greg', profilePicture: 'img', isMatch: true },
+  { id: 2031, firstName: 'Victor', profilePicture: 'img', isMatch: true },
 ];
 
 export const requestArrayMock1 = [
@@ -129,3 +148,5 @@ export const matchesArrayMock1 = [
     createdOn: 'May 8th 2020',
   },
 ];
+
+export const messagesArrayMock = [messageMock1, messageMock2, messageMock3, messageMock4, messageMock5];

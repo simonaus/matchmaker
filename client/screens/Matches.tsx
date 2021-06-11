@@ -4,6 +4,7 @@ import MatchesHome from './MatchesHome';
 import MatchesAdd from './MatchesAdd';
 import MatchesPair from './MatchesPair';
 import MatchesConfirm from './MatchesConfirm';
+import MatchesChat from './MatchesChat';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,11 @@ const Matches = () => {
       <Stack.Screen
         name="MatchesConfirm"
         component={MatchesConfirm}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="MatchesChat"
+        component={MatchesChat}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
