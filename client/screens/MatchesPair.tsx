@@ -131,7 +131,8 @@ const MatchesPair = (props: Props) => {
             width: '89%',
             zIndex: 2,
             top: point.getLayout().top,
-          }}>
+          }}
+        >
           {renderItem2({ item: draggingIndex, index: -1 })}
         </Animated.View>
       )}

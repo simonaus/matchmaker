@@ -7,9 +7,12 @@ import LogIn from './screens/LogIn';
 import ProfileHome from './screens/ProfileHome';
 import Friends from './screens/Friends';
 import Matches from './screens/Matches';
+import { FbUserInfo } from './interfaces/interfaces';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState<FbUserInfo>({});
+  const [fbAuthToken, setFbAuthToken] = useState<string>('');
 
   let homeScreen: Element;
   const Tab = createBottomTabNavigator();
@@ -90,7 +93,13 @@ const App = () => {
       </NavigationContainer>
     );
   } else {
-    homeScreen = <LogIn setIsLoggedIn={setIsLoggedIn} />;
+    homeScreen = (
+      <LogIn
+        setIsLoggedIn={setIsLoggedIn}
+        setUserInfo={setUserInfo}
+        setFbAuthToken={setFbAuthToken}
+      />
+    );
   }
 
   return <View style={styles.view}>{homeScreen}</View>;

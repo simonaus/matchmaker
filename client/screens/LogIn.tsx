@@ -8,9 +8,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import FbButton from '../components/FbButton';
+import { FbUserInfo } from '../interfaces/interfaces';
 
 interface Props {
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
+  setUserInfo: Dispatch<SetStateAction<FbUserInfo>>;
+  setFbAuthToken: Dispatch<SetStateAction<string>>;
 }
 
 const LogIn = (props: Props) => {
@@ -28,7 +31,11 @@ const LogIn = (props: Props) => {
         <Text style={styles.mainHeader}>Matchmaker</Text>
         <Text style={styles.subHeader}>Log-in</Text>
         <View style={styles.container}>
-          <FbButton setIsLoggedIn={props.setIsLoggedIn} />
+          <FbButton
+            setIsLoggedIn={props.setIsLoggedIn}
+            setUserInfo={props.setUserInfo}
+            setFbAuthToken={props.setFbAuthToken}
+          />
           <Text style={styles.text}>or log in with Matchmaker</Text>
           <TextInput
             style={styles.input}
