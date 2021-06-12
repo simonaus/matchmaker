@@ -31,7 +31,13 @@ const App = () => {
         >
           <Tab.Screen
             name="Matches"
-            component={Matches}
+            children={() => (
+              <Matches
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+                fbAuthToken={fbAuthToken}
+              />
+            )}
             options={{
               tabBarLabel: 'Matches',
               tabBarIcon: ({

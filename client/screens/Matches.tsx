@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import MatchesHome from './MatchesHome';
 import MatchesAdd from './MatchesAdd';
@@ -6,10 +6,17 @@ import MatchesPair from './MatchesPair';
 import MatchesConfirm from './MatchesConfirm';
 import MatchesChat from './MatchesChat';
 import MatchesProfile from './MatchesProfile';
+import { FbUserInfo } from '../interfaces/interfaces';
 
 const Stack = createStackNavigator();
 
-const Matches = () => {
+interface Props {
+  userInfo: FbUserInfo;
+  setUserInfo: Dispatch<SetStateAction<FbUserInfo>>;
+  fbAuthToken: string;
+}
+
+const Matches = (props: Props) => {
   return (
     <Stack.Navigator>
       <Stack.Screen

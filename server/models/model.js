@@ -2,13 +2,15 @@ const fs = require('fs');
 const { Sequelize } = require('sequelize');
 const path = require('path');
 
-const config = {
-  host: 'localhost',
-  dialect: 'postgres',
-  post: 5432
-};
+// const config = {
+//   host: 'localhost',
+//   dialect: 'postgres',
+//   post: 5432
+// };
 
-const sequelize = new Sequelize('postgres', 'postgres', 'postgres', config);
+const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/postgres')
+
+// const sequelize = new Sequelize('postgres', 'postgres', 'postgres', config);
 const db = {};
 
 // fs
@@ -32,7 +34,7 @@ const db = {};
 
 // module.exports = db;
 
-const main = async () => {
+module.exports = async () => {
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
@@ -40,6 +42,4 @@ const main = async () => {
     console.error('Unable to connect to the database:', error);
   }
 };
-
-main();
 
