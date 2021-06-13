@@ -6,15 +6,18 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import { friendsArrayMock1 } from '../services/mock';
 import Friend from '../components/Friend';
 
 interface Props {
   navigation: any;
+  route: any;
 }
 
 const MatchesAdd = (props: Props) => {
-  const matchFriends = friendsArrayMock1.filter(friend => friend.isMatch);
+  const userInfo = props.route.params.userInfo;
+  const matchFriends = userInfo.friends.filter(
+    (friend: any) => friend.is_match
+  );
 
   return (
     <View style={styles.view}>
@@ -29,15 +32,15 @@ const MatchesAdd = (props: Props) => {
               onPress={() => {
                 props.navigation.navigate('MatchesPair', {
                   id: item.id,
-                  firstName: item.firstName,
-                  profilePicture: item.profilePicture,
+                  firstName: item.first_name,
+                  profilePicture: item.profile_picture,
                 });
               }}
             >
               <Friend
                 id={item.id}
-                firstName={item.firstName}
-                profilePicture={item.profilePicture}
+                firstName={item.first_name}
+                profilePicture={item.profile_picture}
                 isDragging={false}
               />
             </TouchableOpacity>

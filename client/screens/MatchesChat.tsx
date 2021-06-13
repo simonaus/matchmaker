@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import { messagesArrayMock } from '../services/mock';
 import Message from '../components/Message';
+import api from '../services/api';
+import moment from 'moment';
 
 interface Props {
   navigation: any;
@@ -18,9 +19,45 @@ interface Props {
 
 const MatchesChat = (props: Props) => {
   const [messageContent, setMessageContent] = useState<string>('');
+  const [messagesArray, setMessagesArray] = useState<any[]>([]);
 
-  const onSubmitInput = () => {
+  useEffect(() => {
+    console.log('in useffect');
+    console.log('matchid', props.route.params.id);
+    api.getMessages(props.route.params.id).then(returnedMessages => {
+      const returnedMessagesArray = returnedMessages.map(message => {
+        let isUser = false;
+        if (message.created_by === props.route.params.userId) {
+          isUser = true;
+        }
+        return {
+          id: message.id,
+          user: isUser,
+          createdOn: moment(message.created_at).format('MMMM Do, YYYY'),
+          content: message.content,
+        };
+      });
+      setMessagesArray(returnedMessagesArray);
+    });
+  }, [props.route.params.userId, props.route.params.id]);
+
+  const onSubmitInput = async () => {
+    const newMessage = await api.postMessage(
+      props.route.params.id,
+      props.route.params.userId,
+      messageContent
+    );
     setMessageContent('');
+    console.log('newnewmessage', newMessage);
+    setMessagesArray(prev => [
+      ...prev,
+      {
+        id: newMessage.id,
+        user: true,
+        createdOn: moment(newMessage.created_at).format('MMMM Do, YYYY'),
+        content: newMessage.content,
+      },
+    ]);
     return;
   };
 
@@ -41,7 +78,7 @@ const MatchesChat = (props: Props) => {
         />
       </TouchableOpacity>
       <FlatList
-        data={messagesArrayMock}
+        data={messagesArray}
         keyExtractor={match => match.id + ''}
         renderItem={({ item }) => {
           return (

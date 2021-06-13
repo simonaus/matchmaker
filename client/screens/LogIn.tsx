@@ -5,10 +5,12 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+  Alert,
   TouchableOpacity,
 } from 'react-native';
 import FbButton from '../components/FbButton';
 import { FbUserInfo } from '../interfaces/interfaces';
+import api from '../services/api';
 
 interface Props {
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
@@ -24,6 +26,21 @@ const LogIn = (props: Props) => {
   const [registerPassword, setRegisterPassword] = useState<string>('');
   const [registerRetypePassword, setRegisterRetypePassword] =
     useState<string>('');
+
+  const showAlert = () =>
+    Alert.alert(
+      'Login Failed',
+      'The userID or password is incorrect',
+      [
+        {
+          text: 'Ok',
+          style: 'default',
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
 
   return (
     <View style={styles.view}>
@@ -51,8 +68,17 @@ const LogIn = (props: Props) => {
             placeholder="Password"
           />
           <TouchableOpacity
-            onPress={() => {
-              props.setIsLoggedIn(true);
+            onPress={async () => {
+              const userInfo = await api.verifyAndGetUser(
+                loginUserID,
+                loginPassword
+              );
+              if (!userInfo) {
+                showAlert();
+              } else {
+                props.setUserInfo(userInfo);
+                props.setIsLoggedIn(true);
+              }
             }}
           >
             <Text style={styles.button}>Log in</Text>

@@ -4,6 +4,7 @@ const router = Router();
 const {
   getUser,
   getUserInfoByFacebookId,
+  verifyAndGetUser,
   postUser,
   postUserByFacebookId,
   putUser,
@@ -16,6 +17,7 @@ const {
 
 router.get('/users/:id', getUser);
 router.get('/users/facebook/:facebookId', getUserInfoByFacebookId);
+router.get('/users/:id/:password', verifyAndGetUser);
 router.post('/users', postUser);
 router.post('/users/facebook', postUserByFacebookId);
 router.put('/users', putUser);

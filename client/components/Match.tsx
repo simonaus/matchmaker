@@ -1,13 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 interface Props {
   id: number;
-  user1Name: string;
-  user2Name: string;
-  user2ProfilePicture: string;
-  matchedByName: string;
-  createdOn: string;
+  firstName: string;
+  profilePicture: string;
 }
 
 const Match = (props: Props) => {
@@ -19,7 +16,7 @@ const Match = (props: Props) => {
           source={require('../assets/images/User1.jpg')}
         />
       </View>
-      <Text style={styles.text}>{props.user2Name}</Text>
+      <Text style={styles.text}>{props.firstName}</Text>
     </View>
   );
 };

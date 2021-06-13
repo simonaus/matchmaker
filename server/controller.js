@@ -9,8 +9,22 @@ const getUserInfoByFacebookId = async (req, res) => {
   let userInfo = await db.user.findAll({ where: { facebook_id: req.params.facebookId } });
   userInfo[0].dataValues.friends = await getFriendsArrayByUserId(userInfo[0].dataValues.id);
   userInfo[0].dataValues.matches = await getMatchesArrayByUserId(userInfo[0].dataValues.id);
-  delete user[0].dataValues.password;
+  delete userInfo[0].dataValues.password;
   res.status(200).send(userInfo);
+};
+
+const verifyAndGetUser = async (req, res) => {
+  let userInfo = await db.user.findAll({ where: { id: req.params.id } });
+  if (userInfo.length === 0) {
+    res.status(200).send(false)
+  } else if (userInfo[0].dataValues.password !== req.params.password) {
+    res.status(200).send(false)
+  } else {
+    userInfo[0].dataValues.friends = await getFriendsArrayByUserId(userInfo[0].dataValues.id);
+    userInfo[0].dataValues.matches = await getMatchesArrayByUserId(userInfo[0].dataValues.id);
+    delete userInfo[0].dataValues.password;
+    res.status(200).send(userInfo);
+  }
 };
 
 const postUser = async (req, res) => {
@@ -55,11 +69,18 @@ const postFriend = async (req, res) => {
 };
 
 const getMessages = async (req, res) => {
-
+  let messages = await db.message.findAll({ where: { match_id: req.params.matchId } });
+  res.status(200).send(messages);
 };
 
 const postMessages = async (req, res) => {
-
+  const newMessage = await db.message.create({
+    match_id: req.body.matchId,
+    created_by: req.body.createdBy,
+    content: req.body.message,
+    created_at: Date.now(),
+  })
+  res.status(201).send(newMessage);
 };
 
 const postMatch = async (req, res) => {
@@ -102,25 +123,30 @@ const getMatchesArrayByUserId = async (userId) => {
   //from each row, extract the userId of the match into an array
   const matchesIdArray = matchesTableArray.map(matchData => {
     if (matchData.user_1 === userId) {
-      return matchData.user_2;
+      return { userId: matchData.user_2, id: matchData.id };
     } else {
-      return matchData.user_1;
+      return { userId: matchData.user_1, id: matchData.id };
     }
   });
+
   //for each userId, extract the relevant user details of the friend
-  const matchesArray = await Promise.all(matchesIdArray.map(async matchId => {
-    let matchInfo = await db.user.findAll({ where: { id: matchId } });
+  let matchesArray = await Promise.all(matchesIdArray.map(async matchId => {
+    let matchInfo = await db.user.findAll({ where: { id: matchId.userId } });
+    matchInfo[0].dataValues.userId = matchInfo[0].dataValues.id;
+    matchInfo[0].dataValues.id = matchId.id;
     delete matchInfo[0].dataValues.email;
     delete matchInfo[0].dataValues.password;
     delete matchInfo[0].dataValues.facebook_id;
     return matchInfo[0];
   }));
+  //attach the match id to the array
   return matchesArray;
 };
 
 module.exports = {
   getUser,
   getUserInfoByFacebookId,
+  verifyAndGetUser,
   postUser,
   postUserByFacebookId,
   putUser,

@@ -22,6 +22,7 @@ const Matches = (props: Props) => {
       <Stack.Screen
         name="MatchesHome"
         component={MatchesHome}
+        initialParams={{ userInfo: props.userInfo }}
         options={{ headerShown: false }}
       />
       <Stack.Screen
