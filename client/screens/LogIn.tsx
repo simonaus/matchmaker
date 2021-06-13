@@ -17,7 +17,7 @@ interface Props {
 }
 
 const LogIn = (props: Props) => {
-  const [loginUsername, setLoginUsername] = useState<string>('');
+  const [loginUserID, setLoginUserID] = useState<string>('');
   const [loginPassword, setLoginPassword] = useState<string>('');
   const [registerEmail, setRegisterEmail] = useState<string>('');
   const [registerFirstname, setRegisterFirstname] = useState<string>('');
@@ -39,9 +39,9 @@ const LogIn = (props: Props) => {
           <Text style={styles.text}>or log in with Matchmaker</Text>
           <TextInput
             style={styles.input}
-            value={loginUsername}
-            onChangeText={setLoginUsername}
-            placeholder="Username"
+            value={loginUserID}
+            onChangeText={setLoginUserID}
+            placeholder="UserID"
           />
           <TextInput
             style={styles.input}

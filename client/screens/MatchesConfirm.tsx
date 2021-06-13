@@ -12,8 +12,7 @@ const MatchesConfirm = (props: Props) => {
   let returnValue = (
     <View style={styles.view}>
       <Text style={styles.subHeader}>
-        Are you sure you want to match {props.route.params.firstName1}
-        with {props.route.params.firstName2}?
+        Are you sure you want to match {props.route.params.firstName1} with {props.route.params.firstName2}?
       </Text>
       <View style={styles.matchBox}>
         <Image
@@ -46,8 +45,7 @@ const MatchesConfirm = (props: Props) => {
     returnValue = (
       <View style={styles.view}>
         <Text style={styles.subHeader}>
-          You've successfully matched {props.route.params.firstName1} with
-          {props.route.params.firstName2}! They will be informed for the match
+          You've successfully matched {props.route.params.firstName1} with {props.route.params.firstName2}! They will be informed of the match
           and free to chat.
         </Text>
         <View style={styles.matchBox}>

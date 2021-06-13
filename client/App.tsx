@@ -57,7 +57,13 @@ const App = () => {
           />
           <Tab.Screen
             name="Friends"
-            component={Friends}
+            children={() => (
+              <Friends
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+                fbAuthToken={fbAuthToken}
+              />
+            )}
             options={{
               tabBarLabel: 'Friends',
               tabBarIcon: ({
@@ -77,7 +83,13 @@ const App = () => {
           />
           <Tab.Screen
             name="ProfileHome"
-            component={ProfileHome}
+            children={() => (
+              <ProfileHome
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+                fbAuthToken={fbAuthToken}
+              />
+            )}
             options={{
               tabBarLabel: 'Profile',
               tabBarIcon: ({

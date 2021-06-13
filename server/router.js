@@ -3,7 +3,9 @@ const { Router } = express;
 const router = Router();
 const {
   getUser,
+  getUserInfoByFacebookId,
   postUser,
+  postUserByFacebookId,
   putUser,
   postRequest,
   postFriend,
@@ -13,7 +15,9 @@ const {
 } = require('./controller');
 
 router.get('/users/:id', getUser);
+router.get('/users/facebook/:facebookId', getUserInfoByFacebookId);
 router.post('/users', postUser);
+router.post('/users/facebook', postUserByFacebookId);
 router.put('/users', putUser);
 router.post('/requests', postRequest);
 router.post('/friends', postFriend);

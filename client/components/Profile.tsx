@@ -11,7 +11,7 @@ import { userMock2 } from '../services/mock';
 
 interface Props {
   user: boolean;
-  userId: number;
+  userInfo: any;
 }
 
 const Profile = (props: Props) => {
@@ -26,7 +26,7 @@ const Profile = (props: Props) => {
         >
           <Text style={styles.button}>Edit Profile</Text>
         </TouchableOpacity>
-        <Text style={styles.subHeader}>UserID: {userMock2.id}</Text>
+        <Text style={styles.subHeader}>UserID: {props.userInfo.id}</Text>
       </View>
     );
   }
@@ -39,7 +39,7 @@ const Profile = (props: Props) => {
   return (
     <View style={styles.view}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <Text style={styles.mainHeader}>{userMock2.firstName}</Text>
+        <Text style={styles.mainHeader}>{props.userInfo.first_name}</Text>
         <Image
           style={styles.image}
           source={require('../assets/images/User2.jpg')}
@@ -50,7 +50,7 @@ const Profile = (props: Props) => {
         </View>
         <Text style={styles.subHeader}>About me</Text>
         <View style={styles.container}>
-          <Text style={styles.description}>{userMock2.description}</Text>
+          <Text style={styles.description}>{props.userInfo.description}</Text>
         </View>
       </ScrollView>
     </View>

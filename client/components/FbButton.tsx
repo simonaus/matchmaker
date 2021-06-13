@@ -6,6 +6,7 @@ import {
   GraphRequestManager,
   LoginManager,
 } from 'react-native-fbsdk';
+import api from '../services/api';
 import { FbUserInfo } from '../interfaces/interfaces';
 
 interface Props {
@@ -34,8 +35,19 @@ const FbButton = (props: Props) => {
           console.log('login info has error: ' + error);
         } else {
           if (result) {
-            props.setUserInfo(result);
-            props.setIsLoggedIn(true);
+            api.getUserInfoByFacebookId(result.id).then(userInfo => {
+              if (userInfo.length < 1) {
+                //if there is no user under the facebook idea, add user to database
+                api.postUserWithFacebookId(result).then(response => {
+                  props.setUserInfo(response);
+                  props.setIsLoggedIn(true);
+                });
+              } else {
+                console.log(userInfo[0]);
+                props.setUserInfo(userInfo[0]);
+                props.setIsLoggedIn(true);
+              }
+            });
           }
         }
       }
