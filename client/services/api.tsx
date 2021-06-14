@@ -50,8 +50,6 @@ const postMessage = async (
     createdBy: userId,
     message: message,
   });
-  console.log('userid', userId);
-  console.log('postmessagedata', data);
   const response = await fetch('http://10.0.2.2:3001/messages', {
     method: 'POST',
     headers: {
@@ -60,7 +58,28 @@ const postMessage = async (
     body: data,
   });
   const returnedMessage = await response.json();
-  console.log('returned message', returnedMessage);
+  return returnedMessage;
+};
+
+const postMatch = async (
+  user_1: number,
+  user_2: number,
+  matched_by: number
+) => {
+  const data = JSON.stringify({
+    user_1,
+    user_2,
+    matched_by,
+  });
+  const response = await fetch('http://10.0.2.2:3001/matches', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: data,
+  });
+  const returnedMessage = await response.json();
+  console.log('retuned message');
   return returnedMessage;
 };
 
@@ -71,4 +90,5 @@ export default {
   verifyAndGetUser,
   getMessages,
   postMessage,
+  postMatch,
 };

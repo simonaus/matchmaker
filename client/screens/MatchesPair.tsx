@@ -9,7 +9,6 @@ import {
   Animated,
   PanResponderInstance,
 } from 'react-native';
-import { friendsArrayMock1 } from '../services/mock';
 import Friend from '../components/Friend';
 
 interface Props {
@@ -21,9 +20,9 @@ const MatchesPair = (props: Props) => {
   const [isDragging, setIsDragging] = useState(false);
   const [draggingIndex, setDraggingIndex] = useState(-1);
 
-  const matchFriends = friendsArrayMock1
-    .filter(friend => friend.isMatch)
-    .filter(friend => !(friend.id === props.route.params.id));
+  const matchFriends = props.route.params.userInfo.friends
+    .filter((friend: any) => friend.is_match)
+    .filter((friend: any) => !(friend.id === props.route.params.id));
 
   let point = new Animated.ValueXY();
 
@@ -63,8 +62,9 @@ const MatchesPair = (props: Props) => {
           firstName1: props.route.params.firstName,
           profilePicture1: props.route.params.profilePicture,
           id2: matchFriends[draggingIndex].id,
-          firstName2: matchFriends[draggingIndex].firstName,
-          profilePicture2: matchFriends[draggingIndex].profilePicture,
+          firstName2: matchFriends[draggingIndex].first_name,
+          profilePicture2: matchFriends[draggingIndex].profile_picture,
+          matched_by: props.route.params.userInfo.id,
         });
       }
       reset();
@@ -82,8 +82,8 @@ const MatchesPair = (props: Props) => {
       <View>
         <Friend
           id={item.id}
-          firstName={item.firstName}
-          profilePicture={item.profilePicture}
+          firstName={item.first_name}
+          profilePicture={item.profile_picture}
           isDragging={true}
         />
       </View>
@@ -96,8 +96,8 @@ const MatchesPair = (props: Props) => {
         <View {...(noPanResponder ? {} : panResponder.panHandlers)}>
           <Friend
             id={item.id}
-            firstName={item.firstName}
-            profilePicture={item.profilePicture}
+            firstName={item.first_name}
+            profilePicture={item.profile_picture}
             isDragging={false}
           />
         </View>

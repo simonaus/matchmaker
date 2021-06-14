@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import {
   AccessToken,
@@ -76,6 +76,10 @@ const FbButton = (props: Props) => {
       }
     );
   }
+
+  useEffect(() => {
+    logoutWithFacebook();
+  }, []);
 
   const buttonText = 'Log in with Facebook';
   const onPressButton = loginWithFacebook;

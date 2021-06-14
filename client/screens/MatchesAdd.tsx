@@ -34,6 +34,7 @@ const MatchesAdd = (props: Props) => {
                   id: item.id,
                   firstName: item.first_name,
                   profilePicture: item.profile_picture,
+                  userInfo: userInfo,
                 });
               }}
             >

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import api from '../services/api';
 
 interface Props {
   navigation: any;
@@ -26,14 +27,21 @@ const MatchesConfirm = (props: Props) => {
       </View>
       <TouchableOpacity
         onPress={() => {
+          api.postMatch(
+            props.route.params.id1,
+            props.route.params.id2,
+            props.route.params.matched_by
+          );
           setIsConfirmed(true);
-        }}>
+        }}
+      >
         <Text style={styles.button}>Confirm Match</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           props.navigation.goBack();
-        }}>
+        }}
+      >
         <Text style={styles.button}>
           Go back to matching {props.route.params.firstName1}
         </Text>
@@ -61,7 +69,8 @@ const MatchesConfirm = (props: Props) => {
         <TouchableOpacity
           onPress={() => {
             props.navigation.navigate('MatchesHome');
-          }}>
+          }}
+        >
           <Text style={styles.button}>Go back to your matches</Text>
         </TouchableOpacity>
       </View>

@@ -7,9 +7,11 @@ const getUser = async (req, res) => {
 
 const getUserInfoByFacebookId = async (req, res) => {
   let userInfo = await db.user.findAll({ where: { facebook_id: req.params.facebookId } });
-  userInfo[0].dataValues.friends = await getFriendsArrayByUserId(userInfo[0].dataValues.id);
-  userInfo[0].dataValues.matches = await getMatchesArrayByUserId(userInfo[0].dataValues.id);
-  delete userInfo[0].dataValues.password;
+  if (userInfo.length > 0) {
+    userInfo[0].dataValues.friends = await getFriendsArrayByUserId(userInfo[0].dataValues.id);
+    userInfo[0].dataValues.matches = await getMatchesArrayByUserId(userInfo[0].dataValues.id);
+    delete userInfo[0].dataValues.password;
+  }
   res.status(200).send(userInfo);
 };
 
