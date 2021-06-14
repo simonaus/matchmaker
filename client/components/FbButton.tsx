@@ -35,7 +35,6 @@ const FbButton = (props: Props) => {
           console.log('login info has error: ' + error);
         } else {
           if (result) {
-            console.log(result);
             api.getUserInfoByFacebookId(result.id).then(userInfo => {
               if (userInfo.length < 1) {
                 //if there is no user under the facebook idea, add user to database

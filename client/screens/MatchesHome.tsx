@@ -36,6 +36,7 @@ const MatchesHome = (props: Props) => {
               onPress={() => {
                 props.navigation.navigate('MatchesChat', {
                   id: item.id,
+                  profileId: item.userId,
                   userId: userInfo.id,
                   firstName: item.first_name,
                   profilePicture: item.profile_picture,

@@ -13,7 +13,9 @@ const Match = (props: Props) => {
       <View style={styles.imageView}>
         <Image
           style={styles.image}
-          source={require('../assets/images/User1.jpg')}
+          source={{
+            uri: 'http://10.0.2.2:3001/' + props.profilePicture,
+          }}
         />
       </View>
       <Text style={styles.text}>{props.firstName}</Text>

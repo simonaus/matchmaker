@@ -18,11 +18,15 @@ const MatchesConfirm = (props: Props) => {
       <View style={styles.matchBox}>
         <Image
           style={styles.image}
-          source={require('../assets/images/User2.jpg')}
+          source={{
+            uri: 'http://10.0.2.2:3001/' + props.route.params.profilePicture1,
+          }}
         />
         <Image
           style={styles.image}
-          source={require('../assets/images/User2.jpg')}
+          source={{
+            uri: 'http://10.0.2.2:3001/' + props.route.params.profilePicture2,
+          }}
         />
       </View>
       <TouchableOpacity
@@ -59,11 +63,15 @@ const MatchesConfirm = (props: Props) => {
         <View style={styles.matchBox}>
           <Image
             style={styles.image}
-            source={require('../assets/images/User2.jpg')}
+            source={{
+              uri: 'http://10.0.2.2:3001/' + props.route.params.profilePicture1,
+            }}
           />
           <Image
             style={styles.image}
-            source={require('../assets/images/User2.jpg')}
+            source={{
+              uri: 'http://10.0.2.2:3001/' + props.route.params.profilePicture2,
+            }}
           />
         </View>
         <TouchableOpacity

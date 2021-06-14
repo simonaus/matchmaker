@@ -49,7 +49,9 @@ const Profile = (props: Props) => {
         <Text style={styles.mainHeader}>{profileInfo.first_name}</Text>
         <Image
           style={styles.image}
-          source={require('../assets/images/User2.jpg')}
+          source={{
+            uri: 'http://10.0.2.2:3001/' + profileInfo.profile_picture,
+          }}
         />
         {editButton}
         <View style={styles.container}>

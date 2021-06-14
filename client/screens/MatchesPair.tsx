@@ -42,7 +42,6 @@ const MatchesPair = (props: Props) => {
       Animated.event([{ y: point.y }], { useNativeDriver: false })({
         y: gestureState.y0,
       });
-      console.log('gesturestate0', gestureState.y0);
       currentIndex = yToIndex(gestureState.y0);
       currentY = gestureState.y0;
       setDraggingIndex(currentIndex);
@@ -81,9 +80,9 @@ const MatchesPair = (props: Props) => {
     return (
       <View>
         <Friend
-          id={item.id}
-          firstName={item.first_name}
-          profilePicture={item.profile_picture}
+          id={matchFriends[item].id}
+          firstName={matchFriends[item].first_name}
+          profilePicture={matchFriends[item].profile_picture}
           isDragging={true}
         />
       </View>
@@ -107,7 +106,7 @@ const MatchesPair = (props: Props) => {
 
   const yToIndex = (y: number) => {
     const value = Math.floor(
-      (scrollOffset + y - flatlistTopOffset) / rowHeight,
+      (scrollOffset + y - flatlistTopOffset) / rowHeight
     );
 
     if (value < 0) {
@@ -145,7 +144,9 @@ const MatchesPair = (props: Props) => {
         />
         <Image
           style={styles.image}
-          source={require('../assets/images/User2.jpg')}
+          source={{
+            uri: 'http://10.0.2.2:3001/' + props.route.params.profilePicture,
+          }}
         />
       </View>
       <Text style={styles.subHeader}>Drag a friend to match</Text>

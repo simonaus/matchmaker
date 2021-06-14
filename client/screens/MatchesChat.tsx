@@ -22,8 +22,6 @@ const MatchesChat = (props: Props) => {
   const [messagesArray, setMessagesArray] = useState<any[]>([]);
 
   useEffect(() => {
-    console.log('in useffect');
-    console.log('matchid', props.route.params.id);
     api.getMessages(props.route.params.id).then(returnedMessages => {
       const returnedMessagesArray = returnedMessages.map((message: any) => {
         let isUser = false;
@@ -48,7 +46,6 @@ const MatchesChat = (props: Props) => {
       messageContent
     );
     setMessageContent('');
-    console.log('newnewmessage', newMessage);
     setMessagesArray(prev => [
       ...prev,
       {
@@ -67,14 +64,16 @@ const MatchesChat = (props: Props) => {
         style={styles.headerContainer}
         onPress={() => {
           props.navigation.navigate('MatchesProfile', {
-            id: props.route.params.id,
+            id: props.route.params.profileId,
           });
         }}
       >
         <Text style={styles.mainHeader}>{props.route.params.firstName}</Text>
         <Image
           style={styles.image}
-          source={require('../assets/images/User2.jpg')}
+          source={{
+            uri: 'http://10.0.2.2:3001/' + props.route.params.profilePicture,
+          }}
         />
       </TouchableOpacity>
       <FlatList
