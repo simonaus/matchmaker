@@ -25,7 +25,7 @@ const MatchesChat = (props: Props) => {
     console.log('in useffect');
     console.log('matchid', props.route.params.id);
     api.getMessages(props.route.params.id).then(returnedMessages => {
-      const returnedMessagesArray = returnedMessages.map(message => {
+      const returnedMessagesArray = returnedMessages.map((message: any) => {
         let isUser = false;
         if (message.created_by === props.route.params.userId) {
           isUser = true;

@@ -29,6 +29,8 @@ const getUser = async (req, res) => {
 
 const getUserInfoByFacebookId = async (req, res) => {
   let userInfo = await db.user.findAll({ where: { facebook_id: req.params.facebookId } });
+
+  //get array of matches and friends for user from PSQL
   if (userInfo.length > 0) {
     userInfo[0].dataValues.friends = await getFriendsArrayByUserId(userInfo[0].dataValues.id);
     userInfo[0].dataValues.matches = await getMatchesArrayByUserId(userInfo[0].dataValues.id);
@@ -88,10 +90,6 @@ const postUserByFacebookId = async (req, res) => {
 };
 
 const putUser = async (req, res) => {
-
-};
-
-const postRequest = async (req, res) => {
 
 };
 
@@ -187,7 +185,6 @@ module.exports = {
   postUser,
   postUserByFacebookId,
   putUser,
-  postRequest,
   postFriend,
   getMessages,
   postMessages,

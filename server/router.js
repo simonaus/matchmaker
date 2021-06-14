@@ -10,7 +10,6 @@ const {
   postUser,
   postUserByFacebookId,
   putUser,
-  postRequest,
   postFriend,
   getMessages,
   postMessages,
@@ -25,7 +24,6 @@ router.get('/profile/:id', getProfile);
 router.post('/users', postUser);
 router.post('/users/facebook', postUserByFacebookId);
 router.put('/users', putUser);
-router.post('/requests', postRequest);
 router.post('/friends', postFriend);
 router.get('/messages/:matchId', getMessages);
 router.post('/messages', postMessages);
