@@ -19,6 +19,10 @@ const Friends = (props: Props) => {
       <Stack.Screen
         name="FriendsHome"
         component={FriendsHome}
+        initialParams={{
+          userInfo: props.userInfo,
+          setUserInfo: props.setUserInfo,
+        }}
         options={{ headerShown: false }}
       />
       <Stack.Screen

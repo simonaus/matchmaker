@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,14 +7,26 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { userMock2 } from '../services/mock';
+import api from '../services/api';
 
 interface Props {
   user: boolean;
-  userInfo: any;
+  userId: any;
 }
 
 const Profile = (props: Props) => {
+  const [profileInfo, setProfileInfo] = useState<any>({});
+  const [isMatch, setIsMatch] = useState<string>('Here to make matches');
+
+  useEffect(() => {
+    api.getProfileInfo(props.userId).then(newProfileInfo => {
+      setProfileInfo(newProfileInfo);
+      if (profileInfo.is_match) {
+        setIsMatch('Here to be matched');
+      }
+    });
+  }, [props.userId, profileInfo.is_match]);
+
   let editButton;
   if (props.user) {
     editButton = (
@@ -26,20 +38,15 @@ const Profile = (props: Props) => {
         >
           <Text style={styles.button}>Edit Profile</Text>
         </TouchableOpacity>
-        <Text style={styles.subHeader}>UserID: {props.userInfo.id}</Text>
+        <Text style={styles.subHeader}>UserID: {profileInfo.id}</Text>
       </View>
     );
-  }
-
-  let isMatch: string = 'Here to make matches';
-  if (userMock2.isMatch === 'true') {
-    isMatch = 'Here to be matched';
   }
 
   return (
     <View style={styles.view}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <Text style={styles.mainHeader}>{props.userInfo.first_name}</Text>
+        <Text style={styles.mainHeader}>{profileInfo.first_name}</Text>
         <Image
           style={styles.image}
           source={require('../assets/images/User2.jpg')}
@@ -50,7 +57,7 @@ const Profile = (props: Props) => {
         </View>
         <Text style={styles.subHeader}>About me</Text>
         <View style={styles.container}>
-          <Text style={styles.description}>{props.userInfo.description}</Text>
+          <Text style={styles.description}>{profileInfo.description}</Text>
         </View>
       </ScrollView>
     </View>

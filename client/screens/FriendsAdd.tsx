@@ -7,17 +7,21 @@ import {
   TextInput,
 } from 'react-native';
 import Friend from '../components/Friend';
-import { userMock2 } from '../services/mock';
+import api from '../services/api';
 
 interface Props {
   navigation: any;
+  route: any;
 }
 
 const FriendsAdd = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [friendVisible, setFriendVisible] = useState<boolean>(false);
+  const [searchResult, setSearchResult] = useState<any>({});
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const apiResponse = await api.getFriendInfo(searchTerm);
+    setSearchResult(apiResponse);
     setSearchTerm('');
     setFriendVisible(true);
   };
@@ -40,17 +44,22 @@ const FriendsAdd = (props: Props) => {
         ]}
       >
         <Friend
-          id={userMock2.id}
-          firstName={userMock2.firstName}
-          profilePicture={userMock2.profilePicture}
+          id={searchResult.id}
+          firstName={searchResult.firstName}
+          profilePicture={searchResult.profilePicture}
           isDragging={false}
         />
         <TouchableOpacity
-          onPress={() => {
-            props.navigation.navigate('FriendsHome');
+          onPress={async () => {
+            await api.postFriend(props.route.params.userInfo.id, searchResult.id);
+            const newUserInfo = await api.getUserInfo(props.route.params.userInfo.id);
+            props.route.params.setUserInfo(newUserInfo[0]);
+            props.navigation.navigate('FriendsHome', {
+              userInfo: newUserInfo[0],
+            });
           }}
         >
-          <Text style={styles.button}>Add {userMock2.firstName}?</Text>
+          <Text style={styles.button}>Add {searchResult.firstName}?</Text>
         </TouchableOpacity>
       </View>
     </View>

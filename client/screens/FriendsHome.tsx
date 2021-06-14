@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,26 +6,31 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import { friendsArrayMock1 } from '../services/mock';
 import Friend from '../components/Friend';
 
 interface Props {
   navigation: any;
+  route: any;
 }
 
 const FriendsHome = (props: Props) => {
+  const userInfo = props.route.params.userInfo;
+
   return (
     <View style={styles.view}>
       <Text style={styles.mainHeader}>Your Friends</Text>
       <TouchableOpacity
         onPress={() => {
-          props.navigation.navigate('FriendsAdd');
+          props.navigation.navigate('FriendsAdd', {
+            userInfo: userInfo,
+            setUserInfo: props.route.params.setUserInfo,
+          });
         }}
       >
         <Text style={styles.button}>Add a friend</Text>
       </TouchableOpacity>
       <FlatList
-        data={friendsArrayMock1}
+        data={userInfo.friends}
         keyExtractor={friend => friend.id + ''}
         renderItem={({ item }) => {
           return (
@@ -38,8 +43,8 @@ const FriendsHome = (props: Props) => {
             >
               <Friend
                 id={item.id}
-                firstName={item.firstName}
-                profilePicture={item.profilePicture}
+                firstName={item.first_name}
+                profilePicture={item.profile_picture}
                 isDragging={false}
               />
             </TouchableOpacity>

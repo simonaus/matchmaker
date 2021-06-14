@@ -22,10 +22,22 @@ const postUserWithFacebookId = async (fbUserInfo: FbUserInfo) => {
   return userInfo;
 };
 
-const getUserInfo = async (userId: string) => {
-  const response = await fetch(`http://10.0.2.2:3001/users/${userId}`);
+const getFriendInfo = async (userId: string) => {
+  const response = await fetch(`http://10.0.2.2:3001/friends/${Number(userId)}`);
   const userInfo = await response.json();
   return userInfo;
+};
+
+const getUserInfo = async (userId: string) => {
+  const response = await fetch(`http://10.0.2.2:3001/users/${Number(userId)}`);
+  const userInfo = await response.json();
+  return userInfo;
+};
+
+const getProfileInfo = async (userId: number) => {
+  const response = await fetch(`http://10.0.2.2:3001/profile/${userId}`);
+  const profileInfo = await response.json();
+  return profileInfo;
 };
 
 const verifyAndGetUser = async (userId: string, password: string) => {
@@ -79,16 +91,57 @@ const postMatch = async (
     body: data,
   });
   const returnedMessage = await response.json();
-  console.log('retuned message');
+  return returnedMessage;
+};
+
+const postFriend = async (user_1: number, user_2: number) => {
+  const data = JSON.stringify({
+    user_1,
+    user_2,
+  });
+  const response = await fetch('http://10.0.2.2:3001/friends', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: data,
+  });
+  const returnedMessage = await response.json();
+  return returnedMessage;
+};
+
+const postUser = async (
+  email: string,
+  first_name: string,
+  password: string
+) => {
+  const data = JSON.stringify({
+    email,
+    first_name,
+    password,
+  });
+  const response = await fetch('http://10.0.2.2:3001/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: data,
+  });
+
+  const returnedMessage = await response.json();
   return returnedMessage;
 };
 
 export default {
+  getFriendInfo,
   getUserInfo,
+  getProfileInfo,
   getUserInfoByFacebookId,
   postUserWithFacebookId,
   verifyAndGetUser,
   getMessages,
+  postUser,
   postMessage,
   postMatch,
+  postFriend,
 };

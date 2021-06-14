@@ -1,8 +1,30 @@
 const db = require('./models/model.js');
 const { Op } = require("sequelize");
 
-const getUser = async (req, res) => {
+const getFriend = async (req, res) => {
+  const userInfo = await db.user.findAll({ where: { id: req.params.id } });
+  const returnedUserInfo = {
+    id: userInfo[0].dataValues.id,
+    firstName: userInfo[0].dataValues.first_name,
+    profilePicture: userInfo[0].dataValues.profile_picture,
+  }
+  res.status(200).send(returnedUserInfo);
+};
 
+const getProfile = async (req, res) => {
+  const userInfo = await db.user.findAll({ where: { id: req.params.id } });
+  delete userInfo[0].dataValues.password;
+  res.status(200).send(userInfo[0]);
+};
+
+const getUser = async (req, res) => {
+  const userInfo = await db.user.findAll({ where: { id: req.params.id } });
+  if (userInfo.length > 0) {
+    userInfo[0].dataValues.friends = await getFriendsArrayByUserId(userInfo[0].dataValues.id);
+    userInfo[0].dataValues.matches = await getMatchesArrayByUserId(userInfo[0].dataValues.id);
+    delete userInfo[0].dataValues.password;
+  }
+  res.status(200).send(userInfo);
 };
 
 const getUserInfoByFacebookId = async (req, res) => {
@@ -30,7 +52,21 @@ const verifyAndGetUser = async (req, res) => {
 };
 
 const postUser = async (req, res) => {
-
+  const userInfo = req.body;
+  const newUser = await db.user.create({
+    password: userInfo.password,
+    first_name: userInfo.first_name,
+    email: userInfo.email,
+    profile_picture: 'img',
+    is_match: true,
+    description: '',
+    facebook_id: 0,
+    gender: 'male',
+    interested_in: 'female',
+    created_at: Date.now(),
+    updated_at: Date.now()
+  })
+  res.status(200).send(newUser);
 };
 
 const postUserByFacebookId = async (req, res) => {
@@ -60,10 +96,9 @@ const postRequest = async (req, res) => {
 };
 
 const postFriend = async (req, res) => {
-  const userIds = req.body;
   const friendsInfo = await db.friend.create({
-    user_1: userIds[0],
-    user_2: userIds[1],
+    user_1: req.body.user_1,
+    user_2: req.body.user_2,
     createdAt: Date.now(),
     updatedAt: Date.now()
   })
@@ -86,15 +121,14 @@ const postMessages = async (req, res) => {
 };
 
 const postMatch = async (req, res) => {
-  const userIds = req.body;
-  const friendsInfo = await db.match.create({
-    user_1: userIds[0],
-    user_2: userIds[1],
-    matched_by: userIds[2],
+  const matchInfo = await db.match.create({
+    user_1: req.body.user_1,
+    user_2: req.body.user_2,
+    matched_by: req.body.matched_by,
     createdAt: Date.now(),
     updatedAt: Date.now()
   })
-  res.status(200).send(friendsInfo);
+  res.status(200).send(matchInfo);
 };
 
 const getFriendsArrayByUserId = async (userId) => {
@@ -147,6 +181,7 @@ const getMatchesArrayByUserId = async (userId) => {
 
 module.exports = {
   getUser,
+  getFriend,
   getUserInfoByFacebookId,
   verifyAndGetUser,
   postUser,
@@ -156,5 +191,6 @@ module.exports = {
   postFriend,
   getMessages,
   postMessages,
-  postMatch
+  postMatch,
+  getProfile,
 };

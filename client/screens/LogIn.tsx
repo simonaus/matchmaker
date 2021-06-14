@@ -113,7 +113,13 @@ const LogIn = (props: Props) => {
             placeholder="Retype password"
           />
           <TouchableOpacity
-            onPress={() => {
+            onPress={async () => {
+              const userInfo = await api.postUser(
+                registerEmail,
+                registerFirstname,
+                registerPassword
+              );
+              props.setUserInfo(userInfo);
               props.setIsLoggedIn(true);
             }}
           >

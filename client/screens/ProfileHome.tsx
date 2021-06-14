@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ProfileHome = (props: Props) => {
-  return <Profile user={true} userInfo={props.userInfo} />;
+  return <Profile user={true} userId={props.userInfo.id} />;
 };
 
 export default ProfileHome;

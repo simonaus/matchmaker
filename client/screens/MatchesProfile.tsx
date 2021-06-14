@@ -1,8 +1,13 @@
 import React from 'react';
 import Profile from '../components/Profile';
 
-const ProfileHome = () => {
-  return <Profile user={false} userInfo={1111} />;
+interface Props {
+  navigation: any;
+  route: any;
+}
+
+const ProfileHome = (props: Props) => {
+  return <Profile user={false} userId={props.route.params.id} />;
 };
 
 export default ProfileHome;
