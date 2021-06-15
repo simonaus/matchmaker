@@ -1,7 +1,9 @@
 import { FbUserInfo } from '../interfaces/interfaces';
 
 const getUserInfoByFacebookId = async (facebookId: string) => {
-  const response = await fetch(`http://10.0.2.2:3001/users/facebook/${Number(facebookId)}`);
+  const response = await fetch(
+    `http://10.0.2.2:3001/users/facebook/${facebookId}`
+  );
   const userInfo = await response.json();
   return userInfo;
 };
@@ -23,7 +25,9 @@ const postUserWithFacebookId = async (fbUserInfo: FbUserInfo) => {
 };
 
 const getFriendInfo = async (userId: string) => {
-  const response = await fetch(`http://10.0.2.2:3001/friends/${Number(userId)}`);
+  const response = await fetch(
+    `http://10.0.2.2:3001/friends/${Number(userId)}`
+  );
   const userInfo = await response.json();
   return userInfo;
 };
@@ -41,7 +45,9 @@ const getProfileInfo = async (userId: number) => {
 };
 
 const verifyAndGetUser = async (userId: string, password: string) => {
-  const response = await fetch(`http://10.0.2.2:3001/users/${userId}/${password}`);
+  const response = await fetch(
+    `http://10.0.2.2:3001/users/${userId}/${password}`
+  );
   const userInfo = await response.json();
   return userInfo[0];
 };

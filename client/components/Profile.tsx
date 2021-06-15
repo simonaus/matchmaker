@@ -16,13 +16,13 @@ interface Props {
 
 const Profile = (props: Props) => {
   const [profileInfo, setProfileInfo] = useState<any>({});
-  const [isMatch, setIsMatch] = useState<string>('Here to make matches');
+  const [isMatch, setIsMatch] = useState<string>('Here to be matched');
 
   useEffect(() => {
     api.getProfileInfo(props.userId).then(newProfileInfo => {
       setProfileInfo(newProfileInfo);
-      if (profileInfo.is_match) {
-        setIsMatch('Here to be matched');
+      if (profileInfo.is_match === false) {
+        setIsMatch('Here to make matches');
       }
     });
   }, [props.userId, profileInfo.is_match]);

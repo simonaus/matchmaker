@@ -35,6 +35,7 @@ const FbButton = (props: Props) => {
           console.log('login info has error: ' + error);
         } else {
           if (result) {
+            console.log(result);
             api.getUserInfoByFacebookId(result.id).then(userInfo => {
               if (userInfo.length < 1) {
                 //if there is no user under the facebook idea, add user to database
@@ -95,8 +96,9 @@ const FbButton = (props: Props) => {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: '#4267B2',
-    paddingHorizontal: 50,
+    paddingHorizontal: 0,
     paddingVertical: 10,
+    width: 260,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,

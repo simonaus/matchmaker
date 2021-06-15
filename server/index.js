@@ -9,6 +9,10 @@ const PORT = 3001;
 app.use(cors);
 app.use(express.static('./images'));
 app.use(express.json());
+app.get('*', (req, res, next) => {
+  console.log(req.url);
+  next();
+})
 app.use(router);
 
 app.listen(PORT, () => {
