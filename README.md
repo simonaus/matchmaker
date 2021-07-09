@@ -1,4 +1,4 @@
-# Reddit-lite
+# Matchmaker
 
 ## Table of contents
 - [Introduction](#Introduction)
@@ -14,7 +14,11 @@ The core mission of Matchmaker is to facilitate romantic pairings and aims to re
 
 Matchmaker was built using React Native on the front-end and expressJS and PostgreSQL on the back-end and uses the Facebook API to facilite the quick integration of the user's pre-existing social network into Matchmaker. This is key to the successful implementation of the app. 
 
-![image](https://user-images.githubusercontent.com/66684013/125103793-9c9aa080-e0d4-11eb-9a43-b560a54f2276.png)
+See the app in action [here](https://youtu.be/mShixnhaUJY)
+
+<img width="206" alt="matchmaker home" src="https://user-images.githubusercontent.com/66684013/125109531-6876ae00-e0db-11eb-81a6-a1d889c0f08f.PNG"><img width="212" alt="matchmakermatches" src="https://user-images.githubusercontent.com/66684013/125109458-4c730c80-e0db-11eb-92b8-85b2529ec8df.PNG">
+<img width="208" alt="matchmakerchat" src="https://user-images.githubusercontent.com/66684013/125109297-13d33300-e0db-11eb-8543-11b70484270f.PNG">
+
 
 ## Getting Started
 
@@ -53,17 +57,11 @@ In order to run matchmaker an android phone or Android emulator is required. Ple
 
 ## Features
 
-- Presents posts on reddit homepage
-- Homepage can be filtered by key terms using the search bar
-- Subreddits can be search for by title
-- Access to the newsfeed of any subreddit (also filterable by key terms)
-- Subreddits can be 'subscribed' to, meaning they will appear for quick access in the side navigation bar
-- Subreddits can be 'unsubscribed' from
-- Individual posts can be selected and loaded
-- User comments are presented using markdown formatting
-- Replies to user comments can be hidden/displayed allowing users to 'dig-down' into replies of replies
-- Total score (the total of up/downvotes) for each post and comment is presented
-- Widely accessable from desktop and mobile web browsers
+- Users login through a local account or through Facebook
+- View and add new friends
+- Make a match between two existing friends
+- View all matches that have been made for the user
+- Chat with all matches
 
 ## Future Features
 
@@ -74,20 +72,13 @@ In order to run matchmaker an android phone or Android emulator is required. Ple
 
 ## Technologies
 
-- node.js v15.5.1
-- Visual Studio Code v1.52.1
-- git v2.25.1
-- javaScript 1.8.5
-- CSS3
-- HTML5
-- react 17.0.1
-- redux 4.0.5
-- @reduxjs/toolkit 1.5.0
-- react-dom 17.0.1
-- react-markdown 5.0.3
-- react-redux 7.2.2
-- react-router-dom 5.2.0
-- react-scripts 4.0.2
-- web-vitals 1.1.0
+- Typescript
+- Javascript
+- React Native
+- Android Studio
+- nodeJs
+- expressJs
+- sequelize
+- postgreSQL
 
 
