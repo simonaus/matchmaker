@@ -51,8 +51,13 @@ const FriendsAdd = (props: Props) => {
         />
         <TouchableOpacity
           onPress={async () => {
-            await api.postFriend(props.route.params.userInfo.id, searchResult.id);
-            const newUserInfo = await api.getUserInfo(props.route.params.userInfo.id);
+            await api.postFriend(
+              props.route.params.userInfo.id,
+              searchResult.id
+            );
+            const newUserInfo = await api.getUserInfo(
+              props.route.params.userInfo.id
+            );
             props.route.params.setUserInfo(newUserInfo[0]);
             props.navigation.navigate('FriendsHome', {
               userInfo: newUserInfo[0],
