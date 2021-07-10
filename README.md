@@ -53,7 +53,7 @@ In order to run matchmaker an android phone or Android emulator is required. Ple
 
 8. Run ````node index.js````  from the sever root in order to start up the back-end.
 
-9. App should be fullly functional 🎈
+9. App should be fully functional 🎈
 
 ## Features
 
